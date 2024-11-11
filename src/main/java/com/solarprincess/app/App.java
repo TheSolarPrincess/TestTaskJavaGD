@@ -2,9 +2,6 @@ package com.solarprincess.app;
 
 import java.io.IOException;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) throws IOException {
         if (args.length < 1) {
@@ -12,10 +9,6 @@ public class App {
             System.exit(1);
         }
         GameData gd = new GameData("model.xls");
-        //gd.Test();
-
-        //System.exit(0);
-
         int trials = Integer.parseInt(args[0]);
         int totalResult = 0;
         int totalHits = 0;
