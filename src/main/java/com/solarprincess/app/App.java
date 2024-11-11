@@ -12,9 +12,6 @@ public class App {
             System.exit(1);
         }
         GameData gd = new GameData("model.xls");
-        //gd.Test();
-
-        //System.exit(0);
 
         int trials = Integer.parseInt(args[0]);
         int totalResult = 0;
