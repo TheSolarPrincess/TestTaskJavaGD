@@ -23,6 +23,20 @@ public class GameData {
         public ArrayList<Integer> dist = new ArrayList<>();
     }
 
+    public class ReelResult {
+        public int[] symbols;
+        public int payout;
+        public Boolean ThreeOfAKind() {
+            return symbols[0] == symbols[1] && symbols[1] == symbols[2];
+        }
+        public Boolean TwoOfAKind() {
+            return symbols[0] == symbols[1] && symbols[1] != symbols[2];
+        }
+        public Boolean OneOfAKind() {
+            return symbols[0] != symbols[1];
+        }
+    }
+
     public GameData(String filePath) throws IOException {
         FileInputStream fis = new FileInputStream(filePath);
         Workbook workbook = new HSSFWorkbook(fis);
@@ -66,22 +80,24 @@ public class GameData {
         return symbolIndex;
     }
 
-    public int Roll() {
+    public ReelResult Roll() {
         Random rand = new Random();
         int[] r = {
             Reel(0, rand.nextInt(25)+1),
             Reel(1, rand.nextInt(25)+1),
             Reel(2, rand.nextInt(25)+1)
         };
-        int res = 0;
-        if (r[0] == r[1] && r[1] == r[2]) {
-            res = symbols.get(r[0]-1).payout3;
+        ReelResult res = new ReelResult();
+        res.symbols = r;
+        //int res = 0;
+        if (res.ThreeOfAKind()) {
+            res.payout = symbols.get(r[0]-1).payout3;
         }
-        if (r[0] == r[1] && r[1] != r[2]) {
-            res = symbols.get(r[0]-1).payout2;
+        if (res.TwoOfAKind()) {
+            res.payout = symbols.get(r[0]-1).payout2;
         }
-        if (r[0] != r[1]) {
-            res = symbols.get(r[0]-1).payout1;
+        if (res.OneOfAKind()) {
+            res.payout = symbols.get(r[0]-1).payout1;
         }
         return res;
     }

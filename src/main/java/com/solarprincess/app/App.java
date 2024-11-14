@@ -13,7 +13,7 @@ public class App {
         int totalResult = 0;
         int totalHits = 0;
         for (int i = 0; i < trials; i++ ) {
-            int result = gd.Roll();
+            int result = gd.Roll().payout;
             totalResult += result;
             if (result > 0) totalHits += 1;
         }
